@@ -21,7 +21,7 @@ function isHgDirectory() {
     return $false
 }
 
-function Get-HgStatus {
+function Get-VcsStatus {
   if(isHgDirectory) {
     $untracked = 0
     $added = 0

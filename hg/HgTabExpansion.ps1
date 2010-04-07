@@ -1,4 +1,8 @@
-function HgTabExpansion($lastBlock) {
+function VcsTabPattern {
+    'hg(?:tk)? .*'
+}
+
+function VcsTabExpansion($lastBlock) {
   switch -regex ($lastBlock) { 
     
     #handles hg update <branch name>
@@ -17,6 +21,10 @@ function HgTabExpansion($lastBlock) {
     #handles hg <cmd>
     'hg (help )?(\S*)$' {
       hgCommands($matches[2]);
+    }
+
+    'hgtk (help )?(\S*)$' {
+      hgtkCommands($matches[2]);
     }
   }
 }
@@ -59,16 +67,6 @@ function hgLocalBranches($filter) {
       elseif(-not $filter) {
         $matches[1]
       }
-    }
-  }
-}
-
-function HgtkTabExpansion($lastBlock) {
-  switch -regex ($lastBlock) {     
-    #handles hgtk help <cmd>
-    #handles hgtk <cmd>
-    'hgtk (help )?(\S*)$' {
-      hgtkCommands($matches[2]);
     }
   }
 }

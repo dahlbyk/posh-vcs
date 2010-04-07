@@ -14,7 +14,7 @@ $global:HgPromptSettings = New-Object PSObject -Property @{
     WorkingBackgroundColor    = $Host.UI.RawUI.BackgroundColor
 }
 
-function Write-HgStatus($status) {
+function Write-VcsStatus($status = $(Get-VcsStatus)) {
     if ($status) {
         $s = $global:HgPromptSettings
        

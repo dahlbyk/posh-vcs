@@ -5,8 +5,8 @@ Push-Location $psScriptRoot
 Pop-Location
 
 Export-ModuleMember -Function @(
-  'Write-HgStatus',
-  'Get-HgStatus',
-  'HgTabExpansion',
-  'HgtkTabExpansion'
+  'Write-VcsStatus',
+  'Get-VcsStatus',
+  'VcsTabExpansion',
+  'VcsTabPattern'
 )

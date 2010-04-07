@@ -56,7 +56,7 @@ function Get-GitBranch($gitDir = $(Get-GitDirectory)) {
     }
 }
 
-function Get-GitStatus {
+function Get-VcsStatus {
     if($gitDir = Get-GitDirectory)
     {
         $indexAdded = @()
@@ -114,9 +114,4 @@ function Get-GitStatus {
         
         return $status
     }
-}
-
-function Enable-GitColors {
-    $env:TERM = 'cygwin'
-    $env:LESS = 'FRSX'
 }

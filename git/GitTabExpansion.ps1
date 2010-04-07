@@ -1,6 +1,10 @@
 # Initial implementation by Jeremy Skinner
 # http://www.jeremyskinner.co.uk/2010/03/07/using-git-with-windows-powershell/
 
+function VcsTabPattern {
+    'git(?:k)? .*'
+}
+
 $global:GitTabSettings = New-Object PSObject -Property @{
     AllCommands = $false
 }
@@ -80,7 +84,7 @@ function script:gitAliases($filter) {
     $aliasList | Sort
 }
 
-function GitTabExpansion($lastBlock) {
+function VcsTabExpansion($lastBlock) {
     switch -regex ($lastBlock) {
         # Handles git remote <op>
         # Handles git stash <op>
