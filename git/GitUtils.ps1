@@ -115,3 +115,8 @@ function Get-VcsStatus {
         return $status
     }
 }
+
+function Enable-Colors {
+    $env:TERM = 'cygwin'
+    $env:LESS = 'FRSX'
+}

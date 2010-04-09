@@ -9,6 +9,8 @@ $Vcs = $EnabledVcs |
        Import-Module $(Get-ChildItem $_ *.psm1).FullName -Prefix $_ -AsCustomObject -Force
     }
 
+$AdditionalExports = $Vcs | ?{ $_.AdditionalExports } | %{ $_.AdditionalExports() } | ?{ $_ }
+
 function Write-VcsStatus {
     foreach($v in $Vcs) {
         if($s = $v.'Get-VcsStatus'()) {

@@ -4,9 +4,16 @@ Push-Location $psScriptRoot
 . ./GitTabExpansion.ps1
 Pop-Location
 
+function AdditionalExports {
+    'Enable-GitColors'
+}
+
 Export-ModuleMember -Function @(
   'Write-VcsStatus',
   'Get-VcsStatus',
   'VcsTabExpansion',
-  'VcsTabPattern'
+  'VcsTabPattern',
+
+  'AdditionalExports',
+  'Enable-Colors'
 )

@@ -3,12 +3,16 @@ Push-Location $psScriptRoot
 . ./VcsUtils.ps1
 Pop-Location
 
-Export-ModuleMember -Function @(
-  'Write-VcsStatus',
-  'Get-VcsStatus',
-  'VcsTabExpansion',
-  'Coalesce-Args',
-  'Test-LocalOrParentPath'
+$functions = 
+
+Export-ModuleMember -Function (
+  @(
+    'Write-VcsStatus',
+    'Get-VcsStatus',
+    'VcsTabExpansion',
+    'Coalesce-Args',
+    'Test-LocalOrParentPath'
+  ) + $AdditionalExports
 ) -Alias @(
   '??'
 ) -Variable @(
