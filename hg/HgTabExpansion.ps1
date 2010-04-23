@@ -22,7 +22,9 @@ function VcsTabExpansion($lastBlock, $VcsStatus) {
     'hg (help )?(\S*)$' {
       hgCommands($matches[2]);
     }
-
+    
+    #handles hgtk help <cmd>
+    #handles hgtk <cmd>
     'hgtk (help )?(\S*)$' {
       hgtkCommands($matches[2]);
     }
