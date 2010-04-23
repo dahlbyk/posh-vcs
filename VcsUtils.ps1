@@ -27,7 +27,7 @@ function VcsTabExpansion($line, $lastWord) {
     foreach($v in $Vcs) {
         $p = $v.VcsTabPattern()
         if($lastBlock -match $p) {
-			return $v.VcsTabExpansion($lastBlock)
+			return $v.VcsTabExpansion($lastBlock, $Global:VcsStatus)
         }
     }
 

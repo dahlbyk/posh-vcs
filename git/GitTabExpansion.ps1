@@ -55,7 +55,7 @@ function script:gitStashes($filter) {
         foreach { "'$_'" }
 }
 
-function script:gitIndex($filter) {
+function script:gitIndex($filter, $GitStatus) {
     if($GitStatus) {
         $GitStatus.Index |
             where { $_ -like "$filter*" } |
@@ -63,7 +63,7 @@ function script:gitIndex($filter) {
     }
 }
 
-function script:gitFiles($filter) {
+function script:gitFiles($filter, $GitStatus) {
     if($GitStatus) {
         $GitStatus.Working |
             where { $_ -like "$filter*" } |
@@ -84,7 +84,7 @@ function script:gitAliases($filter) {
     $aliasList | Sort
 }
 
-function VcsTabExpansion($lastBlock) {
+function VcsTabExpansion($lastBlock, $VcsStatus) {
     switch -regex ($lastBlock) {
         # Handles git remote <op>
         # Handles git stash <op>
@@ -132,17 +132,17 @@ function VcsTabExpansion($lastBlock) {
 
         # Handles git reset HEAD <path>
         'git reset HEAD (\S*)$' {
-            gitIndex $matches[1]
+            gitIndex $matches[1] $VcsStatus
         }
 
         # Handles git add <path>
         'git add (\S*)$' {
-            gitFiles $matches[1]
+            gitFiles $matches[1] $VcsStatus
         }
 
         # Handles git checkout -- <path>
         'git checkout -- (\S*)$' {
-            gitFiles $matches[1]
+            gitFiles $matches[1] $VcsStatus
         }
     }
 }

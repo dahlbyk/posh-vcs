@@ -2,7 +2,7 @@ function VcsTabPattern {
     'hg(?:tk)? .*'
 }
 
-function VcsTabExpansion($lastBlock) {
+function VcsTabExpansion($lastBlock, $VcsStatus) {
   switch -regex ($lastBlock) { 
     
     #handles hg update <branch name>
