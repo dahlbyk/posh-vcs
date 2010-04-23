@@ -97,8 +97,8 @@ function VcsTabExpansion($lastBlock) {
             gitStashes $matches[2]
         }
     
-        # Handles git branch -d|-D <branch name>
-        'git branch -(d|D) (\S*)$' {
+        # Handles git branch -d|-D|-m|-M <branch name>
+        'git branch -(d|D|m|M) (\S*)$' {
             gitLocalBranches $matches[2]
         }
          
