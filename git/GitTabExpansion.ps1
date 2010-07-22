@@ -12,6 +12,7 @@ $global:GitTabSettings = New-Object PSObject -Property @{
 $global:ops = @{
     remote = 'add','rename','rm','set-head','show','prune','update'
     stash = 'list','show','drop','pop','apply','branch','save','clear','create'
+    svn = 'init', 'fetch', 'clone', 'rebase', 'dcommit', 'branch', 'tag', 'log', 'blame', 'find-rev', 'set-tree', 'create-ignore', 'show-ignore', 'mkdirs', 'commit-diff', 'info', 'proplist', 'propget', 'show-externals', 'gc', 'reset' 
 }
 
 function script:gitCmdOperations($command, $filter) {
@@ -86,9 +87,16 @@ function script:gitAliases($filter) {
 
 function VcsTabExpansion($lastBlock) {
     switch -regex ($lastBlock) {
+
+        # Handles tgit <command> (tortoisegit)
+        'tgit (\S*)$' {
+            # Need return statement to prevent fall-through.
+            return $tortoiseGitCommands | where { $_ -like "$($matches[1])*" }
+        }
+    
         # Handles git remote <op>
         # Handles git stash <op>
-        'git (remote|stash) (\S*)$' {
+        'git (remote|stash|svn) (\S*)$' {
             gitCmdOperations $matches[1] $matches[2]
         }
 
@@ -97,14 +105,15 @@ function VcsTabExpansion($lastBlock) {
             gitStashes $matches[2]
         }
     
-        # Handles git branch -d|-D <branch name>
-        'git branch -(d|D) (\S*)$' {
+        # Handles git branch -d|-D|-m|-M <branch name>
+        'git branch -(d|D|m|M) (\S*)$' {
             gitLocalBranches $matches[2]
         }
          
         # Handles git checkout <branch name>
         # Handles git merge <branch name>
-        'git (checkout|merge) (\S*)$' {
+        # handles git rebase <branch name>
+        'git (checkout|merge|rebase) (\S*)$' {
             gitLocalBranches $matches[2]
         }
          

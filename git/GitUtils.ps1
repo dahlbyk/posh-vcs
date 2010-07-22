@@ -2,7 +2,7 @@
 # http://www.markembling.info/view/my-ideal-powershell-prompt-with-git-integration
 
 function Get-GitDirectory {
-    Test-LocalOrParentPath .git
+    Get-LocalOrParentPath .git
 }
 
 function Get-GitBranch($gitDir = $(Get-GitDirectory)) {
@@ -67,6 +67,11 @@ function Get-VcsStatus {
         $filesModified = @()
         $filesDeleted = @()
         $filesUnmerged = @()
+        
+        if ($global:GitPromptSettings.AutoRefreshIndex) {
+            git update-index -q --refresh
+        }
+        
         $aheadCount = (git cherry 2>$null | where { $_ -like '+*' } | Measure-Object).Count
         
         $diffIndex = git diff-index -M --name-status --cached HEAD |
